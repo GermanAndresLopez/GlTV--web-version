@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>GlTV — Películas, Series y Anime</title>
+<meta name="description" content="GlTV: catálogo de películas, series y anime en español latino.">
+<meta name="theme-color" content="#141414">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="public/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="icon" href="public/logo.png">
+</head>
+<body>
+
+<!-- ============ BARRA SUPERIOR ============ -->
+<header class="topbar" id="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="#" id="logoBtn">Gl<span>TV</span></a>
+    <nav class="nav" id="mainNav">
+      <button class="nav-btn active" data-type="movie">Películas</button>
+      <button class="nav-btn" data-type="tv">Series</button>
+      <button class="nav-btn" data-type="anime">Anime</button>
+    </nav>
+    <div class="search-box" id="searchBox">
+      <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>
+      <input type="search" id="searchInput" placeholder="Buscar títulos…" autocomplete="off" spellcheck="false">
+      <button class="search-clear" id="searchClear" title="Limpiar" aria-label="Limpiar búsqueda">✕</button>
+      <div class="search-history" id="searchHistory"></div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="hero" hidden>
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-fade-bottom"></div>
+    <div class="hero-content">
+      <h1 class="hero-title" id="heroTitle"></h1>
+      <p class="hero-desc" id="heroDesc"></p>
+      <div class="hero-actions">
+        <button class="btn btn-play" id="heroPlay">▶ Reproducir</button>
+        <button class="btn btn-info" id="heroInfo">ℹ Más información</button>
+        <button class="btn btn-mylist" id="heroFav">+ Mi lista</button>
+      </div>
+      <div class="hero-dots" id="heroDots"></div>
+    </div>
+  </section>
+
+  <!-- ============ FILA DE GÉNEROS + ORDEN ============ -->
+  <div class="filters-row" id="filtersRow">
+    <div class="genre-chips" id="genreChips"></div>
+    <select class="sort-select" id="sortSelect" title="Ordenar">
+      <option>Por defecto</option>
+      <option>Año (recientes)</option>
+      <option>Año (antiguas)</option>
+      <option>Título (A-Z)</option>
+      <option>Título (Z-A)</option>
+      <option>Puntaje (mejor)</option>
+      <option>Puntaje (peor)</option>
+    </select>
+  </div>
+
+  <!-- ============ FILAS: MI LISTA / SEGUIR VIENDO ============ -->
+  <section class="row-section" id="favRow" hidden>
+    <h2 class="row-title">Mi lista</h2>
+    <div class="poster-row" id="favRowInner"></div>
+  </section>
+  <section class="row-section" id="historyRow" hidden>
+    <h2 class="row-title">Seguir viendo</h2>
+    <div class="poster-row" id="historyRowInner"></div>
+  </section>
+  <section class="row-section" id="trendingRow" hidden>
+    <h2 class="row-title">Tendencias</h2>
+    <div class="poster-row" id="trendingRowInner"></div>
+  </section>
+  <section class="row-section" id="latestRow" hidden>
+    <h2 class="row-title">Recién agregadas</h2>
+    <div class="poster-row" id="latestRowInner"></div>
+  </section>
+
+  <!-- ============ GRID PRINCIPAL ============ -->
+  <section class="grid-section">
+    <h2 class="row-title" id="gridTitle">Populares</h2>
+    <div class="spinner-wrap" id="gridSpinner" hidden><div class="spinner"></div></div>
+    <p class="grid-empty" id="gridEmpty" hidden></p>
+    <div class="media-grid" id="mediaGrid"></div>
+    <div class="pagination" id="pagination" hidden>
+      <button class="page-btn" id="prevPage">‹ Anterior</button>
+      <span class="page-label" id="pageLabel">Página 1</span>
+      <button class="page-btn" id="nextPage">Siguiente ›</button>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ MODAL DETALLE ============ -->
+<div class="modal-overlay" id="detailOverlay" hidden>
+  <div class="detail-modal" role="dialog" aria-modal="true">
+    <button class="modal-close" id="detailClose" aria-label="Cerrar">✕</button>
+    <div class="detail-backdrop" id="detailBackdrop"></div>
+    <div class="detail-body">
+      <h2 class="detail-title" id="detailTitle"></h2>
+      <div class="detail-meta" id="detailMeta"></div>
+      <div class="detail-genres" id="detailGenres"></div>
+      <div class="detail-actions">
+        <button class="btn btn-play" id="detailPlay">▶ Reproducir</button>
+        <button class="btn btn-secondary" id="detailTrailer" hidden>🎬 Tráiler</button>
+        <button class="btn btn-mylist" id="detailFav">+ Mi lista</button>
+      </div>
+      <p class="detail-desc" id="detailDesc"></p>
+      <p class="detail-cast" id="detailCast"></p>
+      <div class="episodes-section" id="episodesSection" hidden>
+        <div class="episodes-header">
+          <h3>Episodios</h3>
+          <select class="season-select" id="seasonSelect"></select>
+        </div>
+        <div class="spinner-wrap" id="episodesSpinner" hidden><div class="spinner"></div></div>
+        <div class="episode-list" id="episodeList"></div>
+      </div>
+      <section class="similar-section" id="similarSection" hidden>
+        <h3 class="similar-title">Más como esto</h3>
+        <div class="poster-row similar-row" id="similarRow"></div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL DE FUENTES ============ -->
+<div class="modal-overlay" id="sourceOverlay" hidden>
+  <div class="source-modal" role="dialog" aria-modal="true">
+    <button class="modal-close" id="sourceClose" aria-label="Cerrar">✕</button>
+    <h2 class="source-title" id="sourceTitle"></h2>
+    <p class="source-sub" id="sourceSub"></p>
+    <p class="source-desc" id="sourceDesc"></p>
+    <div class="source-list" id="sourceList"></div>
+    <div class="source-footer">
+      <button class="btn btn-play" id="sourcePlay" disabled>▶ Reproducir</button>
+      <button class="btn btn-secondary" id="sourcePrefer" disabled title="Marcar servidor preferido para este título">★ Preferido</button>
+      <button class="btn btn-secondary" id="sourceBrowser" disabled title="Abrir en una pestaña nueva">🌐 Pestaña</button>
+    </div>
+    <p class="source-hint">Si un servidor no carga o no tiene el título, prueba el siguiente de la lista. <a href="https://fmhy.net/video#streaming-sites" target="_blank" rel="noopener">Más sitios</a></p>
+  </div>
+</div>
+
+<!-- ============ REPRODUCTOR ============ -->
+<div class="player-overlay" id="playerOverlay" hidden>
+  <div class="player-bar">
+    <span class="player-title" id="playerTitle"></span>
+    <div class="player-actions">
+      <button class="btn btn-secondary" id="playerSources">⇄ Cambiar servidor</button>
+      <button class="modal-close player-close" id="playerClose" aria-label="Cerrar reproductor">✕</button>
+    </div>
+  </div>
+  <iframe id="playerFrame" allowfullscreen allow="autoplay; fullscreen; encrypted-media; picture-in-picture" referrerpolicy="origin"></iframe>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
