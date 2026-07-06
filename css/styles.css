@@ -53,15 +53,8 @@ img { max-width: 100%; display: block; }
   height: var(--topbar-h);
 }
 
-.logo {
-  font-size: 26px;
-  font-weight: 900;
-  color: var(--text);
-  text-decoration: none;
-  letter-spacing: -.5px;
-  flex-shrink: 0;
-}
-.logo span { color: var(--accent); }
+.logo { display: block; flex-shrink: 0; }
+.logo img { height: 42px; width: auto; display: block; }
 
 .nav { display: flex; gap: 4px; }
 
@@ -737,7 +730,7 @@ main { padding-top: var(--topbar-h); }
 /* ============ RESPONSIVE ============ */
 @media (max-width: 700px) {
   .topbar-inner { flex-wrap: wrap; height: auto; padding-top: 8px; padding-bottom: 8px; row-gap: 8px; }
-  .logo { font-size: 22px; }
+  .logo img { height: 34px; }
   .nav { order: 3; width: 100%; justify-content: center; }
   .nav-btn { font-size: 14px; padding: 6px 12px; }
   .search-box { width: auto; flex: 1; min-width: 120px; }

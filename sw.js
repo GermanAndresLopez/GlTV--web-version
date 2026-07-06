@@ -2,14 +2,16 @@
    Las APIs no se cachean aquí: la app ya tiene su propio caché con TTL en
    localStorage; los embeds de video jamás deben pasar por el SW. */
 
-const CACHE = "gltv-shell-v1";
+const CACHE = "gltv-shell-v2";
 const SHELL = [
   "./",
   "index.html",
   "css/styles.css",
   "js/app.js",
   "manifest.json",
-  "public/logo.png",
+  "public/logo-nav.png",
+  "public/icon-192.png",
+  "public/icon-512.png",
 ];
 
 self.addEventListener("install", (e) => {
