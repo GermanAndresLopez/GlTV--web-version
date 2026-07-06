@@ -1,4 +1,4 @@
-![GlTV](public/logo.png)
+<p align="center"><img src="public/logo.png" alt="GlTV" width="170"></p>
 
 ## 🎬 GlTV — Tu cine personal en el navegador
 
@@ -69,11 +69,11 @@ _No aloja ni descarga contenido: es un front-end que agrega catálogos públicos
 
 ## 🎮 CÓMO EMPEZAR A JUGAR
 
-\> **Requisitos:** un navegador. Eso es todo. 🎉
+> **Requisitos:** un navegador. Eso es todo. 🎉
 
 ```plaintext
 # Nivel 1 — clonar
-git clone <este-repo> &amp;&amp; cd <este-repo>
+git clone <este-repo> && cd <este-repo>
 
 # Nivel 2 — servir (cualquier servidor estático sirve)
 python -m http.server 8080
