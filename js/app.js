@@ -11,8 +11,10 @@
 const META_BASE = "https://tmdb.elfhosted.com/es-MX";
 const CINEMETA = "https://v3-cinemeta.strem.io";
 const KITSU_BASE = "https://anime-kitsu.strem.fun";
-const VIMEUS_VIEW_KEY = "54YN2DYp7YRtPXlR3dZJLqHkVJThtDe8kgfFjJ5BBcQ";
+const VIMEUS_VIEW_KEY = "hZLj0kp54XECkc48PTvxAB1C5PWF7y6pXiOPkQ0dqSg";
 const VIMEUS_API_KEY = "ak_3J24aoWzvKTBJGEvHEzY6nzehLOaf2Y3";
+// Personalización del reproductor configurada en el panel de Vimeus
+const VIMEUS_PLAYER_OPTS = "title=GlTV&theme=cosmic&loader=v2&font=v2&overlay=v2&selector=v3&playUI=v3&epanel=v3&splash=v3&autoplay=1";
 const RPDB_POSTER = (tt) => `https://api.ratingposterdb.com/imdb/poster-default/${tt}.jpg`;
 const CACHE_MAX_AGE = 12 * 60 * 60 * 1000; // 12 h, igual que el widget
 
@@ -21,9 +23,9 @@ const CACHE_MAX_AGE = 12 * 60 * 60 * 1000; // 12 h, igual que el widget
 // anime con su URL de series (los ids TMDB son los mismos).
 const SERVERS = [
   { name: "Vimeus",    latino: true,  idKind: "tmdb",
-    urlMovie: `https://vimeus.com/e/movie?tmdb={id}&view_key=${VIMEUS_VIEW_KEY}`,
-    urlTv:    `https://vimeus.com/e/serie?tmdb={id}&se={s}&ep={e}&view_key=${VIMEUS_VIEW_KEY}`,
-    urlAnime: `https://vimeus.com/e/anime?tmdb={id}&se={s}&ep={e}&view_key=${VIMEUS_VIEW_KEY}` },
+    urlMovie: `https://vimeus.com/e/movie?tmdb={id}&view_key=${VIMEUS_VIEW_KEY}&${VIMEUS_PLAYER_OPTS}`,
+    urlTv:    `https://vimeus.com/e/serie?tmdb={id}&se={s}&ep={e}&view_key=${VIMEUS_VIEW_KEY}&${VIMEUS_PLAYER_OPTS}`,
+    urlAnime: `https://vimeus.com/e/anime?tmdb={id}&se={s}&ep={e}&view_key=${VIMEUS_VIEW_KEY}&${VIMEUS_PLAYER_OPTS}` },
   { name: "Videasy",   latino: true,  idKind: "tmdb",
     urlMovie: "https://player.videasy.net/movie/{id}?progress=true",
     urlTv:    "https://player.videasy.net/tv/{id}/{s}/{e}?progress=true" },
